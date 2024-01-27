@@ -1,0 +1,51 @@
+[gd_scene load_steps=3 format=3 uid="uid://85w5ophdaonf"]
+
+[ext_resource type="Script" path="res://scripts/world/World.cs" id="1_tvjcw"]
+[ext_resource type="Script" path="res://scripts/player/Player.cs" id="2_a38qt"]
+
+[node name="Main" type="Node3D"]
+
+[node name="World" type="Node3D" parent="." node_paths=PackedStringArray("player")]
+script = ExtResource("1_tvjcw")
+player = NodePath("Player")
+
+[node name="Player" type="Node3D" parent="World" node_paths=PackedStringArray("camera", "world", "cube")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 150, 0)
+script = ExtResource("2_a38qt")
+camera = NodePath("Camera")
+world = NodePath("..")
+cube = NodePath("../../Cube")
+
+[node name="Camera" type="Camera3D" parent="World/Player"]
+fov = 100.0
+
+[node name="Directional Light" type="DirectionalLight3D" parent="World"]
+transform = Transform3D(0.707107, -0.5, 0.5, 0, 0.707107, 0.707107, -0.707107, -0.5, 0.5, 10, 10, 10)
+light_energy = 1.5
+sky_mode = 1
+
+[node name="Cube" type="CSGBox3D" parent="."]
+size = Vector3(1.1, 1.1, 1.1)
+
+[node name="Interface" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="Interface"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -2.0
+offset_top = -2.0
+offset_right = 2.0
+offset_bottom = 2.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
